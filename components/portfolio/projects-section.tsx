@@ -1,6 +1,6 @@
 "use client"
 
-import { ExternalLink, Github, Satellite, Cpu, BarChart3 } from "lucide-react"
+import { ExternalLink, GitBranch, Satellite, Cpu, BarChart3 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { useEffect, useRef, useState } from "react"
@@ -87,16 +87,23 @@ export function ProjectsSection() {
             <div
               key={project.title}
               className={`group relative transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}`}
-              style={{ transitionDelay: `${200 + index * 150}ms` }}
+              style={{
+                transitionDelay: `${200 + index * 150}ms`,
+              }}
             >
               {/* Connection line */}
               {index < projects.length - 1 && (
                 <div className="absolute left-12 top-full w-0.5 h-8 bg-gradient-to-b from-primary/50 to-transparent hidden lg:block" />
               )}
 
-              <div 
+              <button 
                 onMouseEnter={playHover}
-                className="relative rounded-3xl bg-card/30 backdrop-blur-md border border-border/30 overflow-hidden hover:border-primary/40 transition-all duration-500 hover:shadow-[0_0_50px_rgba(59,130,246,0.15)]">
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    playHover()
+                  }
+                }}
+                className="relative rounded-3xl bg-card/30 backdrop-blur-md border border-border/30 overflow-hidden hover:border-primary/40 transition-all duration-500 hover:shadow-[0_0_50px_rgba(59,130,246,0.15)] focus:outline-none focus:ring-2 focus:ring-primary/50">
                 {/* Top control bar */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-border/30 bg-card/50">
                   <div className="flex items-center gap-4">
@@ -150,7 +157,7 @@ export function ProjectsSection() {
                             variant="outline"
                             className="rounded-xl border-border/50 bg-card/50 hover:bg-primary/20 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-300"
                           >
-                            <Github className="w-4 h-4 mr-2" />
+                            <GitBranch className="w-4 h-4 mr-2" />
                             Code
                           </Button>
                         </a>
@@ -158,7 +165,7 @@ export function ProjectsSection() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </button>
             </div>
           ))}
         </div>
@@ -174,7 +181,7 @@ export function ProjectsSection() {
             className="rounded-full px-8 border-border/30 bg-card/30 backdrop-blur-sm hover:bg-primary/20 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-500"
           >
             <a href="https://github.com/shreyankp06" target="_blank" rel="noopener noreferrer" onClick={playClick}>
-              <Github className="w-5 h-5 mr-2" />
+              <GitBranch className="w-5 h-5 mr-2" />
               View All on GitHub
               <ExternalLink className="w-4 h-4 ml-2" />
             </a>

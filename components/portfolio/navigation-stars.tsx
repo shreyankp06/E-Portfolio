@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useAudio } from "./audio-context"
+import styles from "./navigation-stars.module.css"
 
 interface NavigationStar {
   id: string
@@ -92,7 +93,7 @@ export function NavigationStars() {
             onClick={() => handleClick(star.section)}
             onMouseEnter={() => handleHover(star.id)}
             onMouseLeave={() => setHoveredStar(null)}
-            className="absolute pointer-events-auto cursor-pointer group transition-all duration-300"
+            className={`absolute pointer-events-auto cursor-pointer group transition-all duration-300 ${styles.navButton}`}
             style={{
               left: `${pos.x}%`,
               top: `${pos.y}%`,
@@ -102,29 +103,16 @@ export function NavigationStars() {
           >
             {/* Outer glow ring */}
             <div
-              className={`absolute inset-0 rounded-full transition-all duration-500 ${
+              className={`${styles.outerGlowRing} ${
                 isHovered ? "scale-[3] opacity-100" : "scale-100 opacity-0"
               }`}
-              style={{
-                width: 40,
-                height: 40,
-                left: -15,
-                top: -15,
-                background: "radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, transparent 70%)",
-              }}
             />
 
             {/* Pulsing ring */}
             <div
-              className={`absolute rounded-full border border-cyan-400/30 ${
+              className={`${styles.pulsingRing} ${
                 isHovered ? "animate-ping" : ""
               }`}
-              style={{
-                width: 30,
-                height: 30,
-                left: -10,
-                top: -10,
-              }}
             />
 
             {/* Star core */}
@@ -155,13 +143,7 @@ export function NavigationStars() {
             {/* Constellation lines (connecting dots) */}
             {isHovered && (
               <svg
-                className="absolute pointer-events-none opacity-30"
-                style={{
-                  width: 200,
-                  height: 200,
-                  left: -95,
-                  top: -95,
-                }}
+                className={`absolute pointer-events-none opacity-30 ${styles.constellationSvg}`}
               >
                 <line
                   x1="100"

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react"
 import { Rocket } from "lucide-react"
+import styles from "./cursor-rocket.module.css"
 
 export function CursorRocket() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -11,6 +12,17 @@ export function CursorRocket() {
   const [isMoving, setIsMoving] = useState(false)
   const [trail, setTrail] = useState<{ x: number; y: number; opacity: number }[]>([])
 
+  const updateTrailParticles = (newX: number, newY: number) => {
+    setTrail((prevTrail) => {
+      const newTrail = [
+        ...prevTrail,
+        { x: newX, y: newY, opacity: 0.6 },
+      ].slice(-8) // Keep last 8 particles
+
+      return newTrail.map((p) => ({ ...p, opacity: p.opacity * 0.85 }))
+    })
+  }
+
   const handleMouseMove = useCallback((e: MouseEvent) => {
     setTargetPosition({ x: e.clientX, y: e.clientY })
     setIsVisible(true)
@@ -19,30 +31,29 @@ export function CursorRocket() {
 
   useEffect(() => {
     // Check if device supports hover (not touch-only)
-    const mediaQuery = window.matchMedia("(hover: hover)")
+    const mediaQuery = globalThis.matchMedia("(hover: hover)")
     if (!mediaQuery.matches) return
 
-    window.addEventListener("mousemove", handleMouseMove)
+    globalThis.addEventListener("mousemove", handleMouseMove)
     
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
+      globalThis.removeEventListener("mousemove", handleMouseMove)
     }
   }, [handleMouseMove])
 
   useEffect(() => {
     let animationFrameId: number
     let lastTime = 0
-    let moveTimeout: NodeJS.Timeout
+    let moveTimeout: NodeJS.Timeout | undefined
 
     const animate = (time: number) => {
       if (lastTime === 0) lastTime = time
-      const delta = (time - lastTime) / 1000
       lastTime = time
 
       setPosition((prev) => {
         const dx = targetPosition.x - prev.x
         const dy = targetPosition.y - prev.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
+        const distance = Math.hypot(dx, dy)
 
         if (distance > 1) {
           // Calculate rotation based on movement direction
@@ -55,14 +66,7 @@ export function CursorRocket() {
           const newY = prev.y + dy * ease
 
           // Add trail particle
-          setTrail((prevTrail) => {
-            const newTrail = [
-              ...prevTrail,
-              { x: newX, y: newY, opacity: 0.6 },
-            ].slice(-8) // Keep last 8 particles
-
-            return newTrail.map((p) => ({ ...p, opacity: p.opacity * 0.85 }))
-          })
+          updateTrailParticles(newX, newY)
 
           return { x: newX, y: newY }
         }
@@ -93,53 +97,34 @@ export function CursorRocket() {
       {trail.map((particle, i) => (
         <div
           key={i}
-          className="absolute w-2 h-2 rounded-full"
+          className={styles.trailParticle}
           style={{
-            left: particle.x - 4,
-            top: particle.y - 4,
+            left: `${particle.x - 4}px`,
+            top: `${particle.y - 4}px`,
             opacity: particle.opacity,
-            background: `radial-gradient(circle, rgba(56, 189, 248, ${particle.opacity}) 0%, transparent 70%)`,
-            boxShadow: `0 0 ${6 + i}px rgba(56, 189, 248, ${particle.opacity * 0.5})`,
-            transform: "translate(-50%, -50%)",
+            transform: `scale(${1 + i * 0.1})`,
           }}
         />
       ))}
 
       {/* Rocket */}
       <div
-        className="absolute transition-transform duration-75"
+        className={styles.rocketContainer}
         style={{
-          left: position.x,
-          top: position.y,
+          left: `${position.x}px`,
+          top: `${position.y}px`,
           transform: `translate(-50%, -50%) rotate(${rotation}deg) scale(${isMoving ? 1.1 : 1})`,
         }}
       >
         {/* Rocket glow */}
         <div
-          className="absolute inset-0 blur-md opacity-60"
-          style={{
-            background: "radial-gradient(circle, rgba(56, 189, 248, 0.6) 0%, transparent 70%)",
-            width: 40,
-            height: 40,
-            left: -10,
-            top: -10,
-          }}
+          className={styles.rocketGlow}
         />
         
         {/* Engine flame */}
         {isMoving && (
           <div
-            className="absolute animate-pulse"
-            style={{
-              width: 12,
-              height: 20,
-              left: -2,
-              top: 18,
-              background: "linear-gradient(to bottom, #f97316 0%, #fbbf24 50%, transparent 100%)",
-              borderRadius: "50% 50% 50% 50%",
-              filter: "blur(2px)",
-              transform: "rotate(180deg)",
-            }}
+            className={styles.engineFlame}
           />
         )}
 

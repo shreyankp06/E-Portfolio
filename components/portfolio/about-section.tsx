@@ -2,6 +2,7 @@
 
 import { Satellite, Brain, Globe2, Database } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { cn } from "@/lib/utils"
 
 const highlights = [
   {
@@ -47,6 +48,8 @@ export function AboutSection() {
     return () => observer.disconnect()
   }, [])
 
+  const delayClasses = ["delay-300", "delay-400", "delay-500", "delay-600", "delay-700"]
+
   return (
     <section ref={sectionRef} id="about" className="relative py-32 px-6 overflow-hidden">
       {/* Floating panel background effect */}
@@ -62,7 +65,7 @@ export function AboutSection() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            Astronaut Profile
+            <span>Astronaut Profile</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 font-[family-name:var(--font-display)]">
             About <span className="text-primary drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">Me</span>
@@ -90,17 +93,14 @@ export function AboutSection() {
                 to solve real-world environmental and urban challenges.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                My work focuses on <span className="text-primary font-medium">Geospatial AI</span>,
-                <span className="text-primary font-medium"> environmental modeling</span>, and
-                <span className="text-primary font-medium"> spatial decision systems</span>. I enjoy integrating
+                My work focuses on <span className="text-primary font-medium">Geospatial AI</span>,{" "}
+                <span className="text-primary font-medium">environmental modeling</span>, and{" "}
+                <span className="text-primary font-medium">spatial decision systems</span>. I enjoy integrating
                 satellite data, machine learning, and large-scale geospatial analytics to build data-driven
                 environmental and urban intelligence frameworks.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Currently maintaining a <span className="text-foreground font-medium">CGPA of 9.89</span> while
-                actively working on projects involving PM2.5 prediction, urban growth analysis, and governance
-                analytics. Certified <span className="text-foreground font-medium">Elite + Gold (Top 2%)</span> in
-                NPTEL Programming in Java.
+                Currently maintaining a <span className="text-foreground font-medium">CGPA of 9.89</span> while actively working on projects involving PM2.5 prediction, urban growth analysis, and governance analytics. Certified <span className="text-foreground font-medium">Elite + Gold (Top 2%)</span> in NPTEL Programming in Java.
               </p>
 
               {/* Stats */}
@@ -125,8 +125,11 @@ export function AboutSection() {
               {highlights.map((item, index) => (
                 <div
                   key={item.title}
-                  className={`group p-6 rounded-2xl bg-card/50 border border-border/30 backdrop-blur-sm hover:bg-card/70 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:-translate-y-1 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-                  style={{ transitionDelay: `${300 + index * 100}ms` }}
+                  className={cn(
+                    "group p-6 rounded-2xl bg-card/50 border border-border/30 backdrop-blur-sm hover:bg-card/70 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.15)] hover:-translate-y-1",
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+                    delayClasses[index] ?? "delay-300"
+                  )}
                 >
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all duration-500">
                     <item.icon className="w-7 h-7 text-primary" />

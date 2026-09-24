@@ -11,19 +11,20 @@ export function SoundToggle() {
 
   const handleToggle = () => {
     toggleSound()
-    if (!isSoundEnabled) {
-      // Will be enabled after toggle
-      setTimeout(() => startAmbient(), 300)
-    } else {
+    if (isSoundEnabled) {
+      // Will be disabled after toggle
       stopAmbient()
+    } else {
+      setTimeout(() => startAmbient(), 300)
     }
   }
 
   return (
-    <div 
+    <section 
       className="fixed top-6 right-6 z-50 flex items-center gap-2"
       onMouseEnter={() => setShowVolumeSlider(true)}
       onMouseLeave={() => setShowVolumeSlider(false)}
+      aria-label="Sound controls"
     >
       {/* Volume Slider */}
       <div
@@ -38,7 +39,8 @@ export function SoundToggle() {
           max="1"
           step="0.1"
           value={volume}
-          onChange={(e) => setVolume(parseFloat(e.target.value))}
+          onChange={(e) => setVolume(Number.parseFloat(e.target.value))}
+          title="Volume control"
           className="w-20 h-1 bg-border rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(59,130,246,0.5)]"
         />
       </div>
@@ -82,6 +84,6 @@ export function SoundToggle() {
       <div className="absolute top-full mt-2 right-0 px-3 py-1.5 rounded-lg bg-card/90 backdrop-blur-sm border border-border/50 text-xs font-medium text-foreground opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap pointer-events-none">
         {isSoundEnabled ? "Sound On" : "Sound Off (Click to enable)"}
       </div>
-    </div>
+    </section>
   )
 }

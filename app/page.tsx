@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { StarBackground } from "@/components/portfolio/star-background"
 import { RocketIntro } from "@/components/portfolio/rocket-intro"
-import { SpaceNavigation } from "@/components/portfolio/space-navigation"
+import { SpaceJourney } from "@/components/portfolio/space-journey"
 import { CursorRocket } from "@/components/portfolio/cursor-rocket"
 import { NavigationStars } from "@/components/portfolio/navigation-stars"
 import { AudioProvider } from "@/components/portfolio/audio-context"
@@ -28,7 +28,13 @@ export default function Home() {
       <SoundToggle />
       
       <main className="relative z-10 min-h-screen">
-        <SpaceNavigation />
+        <SpaceJourney onSectionChange={(section) => {
+        // Scroll to section when journey stop changes
+        const element = document.getElementById(section)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      }} />
         <HeroSection />
         <AboutSection />
         <ProjectsSection />

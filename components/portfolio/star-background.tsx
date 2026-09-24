@@ -66,8 +66,7 @@ export function StarBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
-      style={{ background: "linear-gradient(to bottom, #0a0a1a 0%, #0f0f2a 50%, #1a1a3a 100%)" }}
+      className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-b from-[#0a0a1a] via-[#0f0f2a] to-[#1a1a3a]"
     />
   )
 }

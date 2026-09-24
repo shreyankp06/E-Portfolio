@@ -1,14 +1,14 @@
 "use client"
 
 import Image from "next/image"
-import { Mail, Linkedin, Github, Phone, ChevronDown } from "lucide-react"
+import { Mail, Code2, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 
 const socialLinks = [
   { icon: Mail, href: "mailto:shreyankp06@gmail.com", label: "Email" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/shreyankparab", label: "LinkedIn" },
-  { icon: Github, href: "https://github.com/shreyankp06", label: "GitHub" },
+  { icon: Code2, href: "https://linkedin.com/in/shreyankparab", label: "LinkedIn", isLinkedin: true },
+  { icon: Code2, href: "https://github.com/shreyankp06", label: "GitHub" },
   { icon: Phone, href: "tel:+918424089685", label: "Phone" },
 ]
 

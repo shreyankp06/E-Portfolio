@@ -113,7 +113,7 @@ export function SkillsSection() {
                     <span
                       key={skill}
                       className="px-4 py-2 text-sm rounded-full bg-card/80 text-secondary-foreground border border-border/50 hover:border-primary/40 hover:bg-primary/10 hover:text-primary transition-all duration-300"
-                      style={{ transitionDelay: `${skillIndex * 50}ms` }}
+                      style={{ transitionDelay: `${skillIndex * 50}ms` } as React.CSSProperties}
                     >
                       {skill}
                     </span>

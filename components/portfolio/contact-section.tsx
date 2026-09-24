@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Linkedin, Github, Phone, MapPin, Download, Radio, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Download, Radio, Send, Briefcase, Code } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useRef, useState } from "react"
 
@@ -18,13 +18,13 @@ const contactInfo = [
     href: "tel:+918424089685",
   },
   {
-    icon: Linkedin,
+    icon: Briefcase,
     label: "LinkedIn",
     value: "linkedin.com/in/shreyankparab",
     href: "https://www.linkedin.com/in/shreyankparab",
   },
   {
-    icon: Github,
+    icon: Code,
     label: "GitHub",
     value: "github.com/shreyankp06",
     href: "https://github.com/shreyankp06",

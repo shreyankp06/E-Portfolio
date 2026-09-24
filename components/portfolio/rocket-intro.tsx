@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useEffect, useMemo } from "react"
-import { Flame, Rocket } from "lucide-react"
+import { Rocket } from "lucide-react"
 import { useAudio } from "./audio-context"
 
 interface RocketIntroProps {
-  onComplete: () => void
+  readonly onComplete: () => void
 }
 
 // Generate stars with a seeded approach - fixed positions to avoid hydration mismatch
@@ -23,12 +23,11 @@ const generateStars = () => {
 }
 
 export function RocketIntro({ onComplete }: RocketIntroProps) {
-  const [phase, setPhase] = useState<"idle" | "countdown" | "launch" | "complete">("idle")
+  const [phase, setPhase] = useState<"countdown" | "launch" | "complete">("countdown")
   const [count, setCount] = useState(3)
   const [mounted, setMounted] = useState(false)
-  const [isPreparingLaunch, setIsPreparingLaunch] = useState(false)
-  const { playClick, playRocketLaunch, isSoundEnabled, unlockAudio } = useAudio()
-
+  const { playRocketLaunch, isSoundEnabled } = useAudio()
+  
   const stars = useMemo(() => generateStars(), [])
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export function RocketIntro({ onComplete }: RocketIntroProps) {
 
   useEffect(() => {
     if (phase === "countdown" && count > 0) {
-      const timer = setTimeout(() => setCount((current) => current - 1), 1000)
+      const timer = setTimeout(() => setCount(count - 1), 600)
       return () => clearTimeout(timer)
     } else if (phase === "countdown" && count === 0) {
       setPhase("launch")
@@ -57,16 +56,6 @@ export function RocketIntro({ onComplete }: RocketIntroProps) {
       return () => clearTimeout(timer)
     }
   }, [phase, onComplete, isSoundEnabled, playRocketLaunch])
-
-  const handleLaunchStart = async () => {
-    if (isPreparingLaunch) return
-
-    setIsPreparingLaunch(true)
-    await unlockAudio()
-    playClick()
-    setCount(3)
-    setPhase("countdown")
-  }
 
   if (phase === "complete") {
     return (
@@ -98,34 +87,6 @@ export function RocketIntro({ onComplete }: RocketIntroProps) {
         ))}
       </div>
 
-      {phase === "idle" && (
-        <div className="relative z-10 px-6">
-          <div className="mx-auto max-w-md rounded-[2rem] border border-primary/30 bg-black/30 p-8 text-center shadow-[0_0_60px_rgba(59,130,246,0.18)] backdrop-blur-md">
-            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
-              <Flame className="h-8 w-8 text-primary" />
-            </div>
-            <p className="text-xs uppercase tracking-[0.45em] text-primary/80">
-              Launch Pad Ready
-            </p>
-            <h2 className="mt-4 text-3xl font-bold text-white font-[family-name:var(--font-display)]">
-              Ignite the mission
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Tap the launch button to unlock sound, arm the boosters, and begin a 3 second countdown.
-            </p>
-
-            <button
-              type="button"
-              onClick={handleLaunchStart}
-              className="group mt-8 inline-flex items-center gap-3 rounded-full border border-primary/50 bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-primary-foreground shadow-[0_0_30px_rgba(59,130,246,0.35)] transition-all duration-300 hover:scale-105 hover:bg-primary/90"
-            >
-              <Rocket className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1" />
-              Launch Sequence
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Countdown */}
       {phase === "countdown" && (
         <div className="relative z-10 text-center">
@@ -133,7 +94,7 @@ export function RocketIntro({ onComplete }: RocketIntroProps) {
             {count === 0 ? "LAUNCH!" : count}
           </div>
           <p className="text-muted-foreground mt-4 uppercase tracking-widest text-sm">
-            T-Minus {count === 0 ? "0" : count}
+            Initiating Mission
           </p>
         </div>
       )}

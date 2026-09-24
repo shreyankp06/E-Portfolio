@@ -21,10 +21,11 @@ export function SpaceNavigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100)
+      setIsScrolled(globalThis.scrollY > 100)
 
       const sections = navItems.map((item) => item.href.replace("#", ""))
-      for (const section of sections.reverse()) {
+      const reversedSections = [...sections].reverse()
+      for (const section of reversedSections) {
         const el = document.getElementById(section)
         if (el) {
           const rect = el.getBoundingClientRect()
@@ -63,16 +64,15 @@ export function SpaceNavigation() {
             key={item.href}
             onClick={() => scrollToSection(item.href)}
             onMouseEnter={playHover}
+            data-nav-index={index}
             className={cn(
               "group relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500",
               "bg-card/30 backdrop-blur-md border border-border/30 hover:border-primary/50",
               "hover:bg-primary/20 hover:scale-110 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]",
               activeSection === item.href.replace("#", "") &&
-                "bg-primary/30 border-primary/50 shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+                "bg-primary/30 border-primary/50 shadow-[0_0_20px_rgba(59,130,246,0.4)]",
+              isScrolled && "nav-float-in"
             )}
-            style={{
-              animation: isScrolled ? `floatIn 0.5s ease-out ${index * 0.1}s both` : undefined,
-            }}
             aria-label={item.label}
           >
             <item.icon
@@ -99,10 +99,10 @@ export function SpaceNavigation() {
         <a
           href="/resume.pdf"
           download
-          className="group relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 bg-primary/20 backdrop-blur-md border border-primary/30 hover:border-primary/50 hover:bg-primary/30 hover:scale-110 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
-          style={{
-            animation: isScrolled ? `floatIn 0.5s ease-out 0.5s both` : undefined,
-          }}
+          className={cn(
+            "group relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-500 bg-primary/20 backdrop-blur-md border border-primary/30 hover:border-primary/50 hover:bg-primary/30 hover:scale-110 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]",
+            isScrolled && "nav-float-in-resume"
+          )}
           aria-label="Download Resume"
         >
           <FileText className="w-5 h-5 text-primary" />
@@ -178,6 +178,30 @@ export function SpaceNavigation() {
             opacity: 1;
             transform: translateX(0);
           }
+        }
+        
+        .nav-float-in[data-nav-index="0"] {
+          animation: floatIn 0.5s ease-out 0s both;
+        }
+        
+        .nav-float-in[data-nav-index="1"] {
+          animation: floatIn 0.5s ease-out 0.1s both;
+        }
+        
+        .nav-float-in[data-nav-index="2"] {
+          animation: floatIn 0.5s ease-out 0.2s both;
+        }
+        
+        .nav-float-in[data-nav-index="3"] {
+          animation: floatIn 0.5s ease-out 0.3s both;
+        }
+        
+        .nav-float-in[data-nav-index="4"] {
+          animation: floatIn 0.5s ease-out 0.4s both;
+        }
+        
+        .nav-float-in-resume {
+          animation: floatIn 0.5s ease-out 0.5s both;
         }
       `}</style>
     </>
