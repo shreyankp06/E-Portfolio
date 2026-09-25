@@ -1,0 +1,36 @@
+.navButton {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.outerGlowRing {
+  position: absolute;
+  inset: -12px;
+  border-radius: 9999px;
+  border: 1px solid rgba(125, 211, 252, 0.45);
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.18), rgba(34, 211, 238, 0.02) 45%, transparent 70%);
+  transition: all 0.3s ease;
+}
+
+.pulsingRing {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
+}
+
+.constellationSvg {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+}
