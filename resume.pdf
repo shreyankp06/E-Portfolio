@@ -1,0 +1,52 @@
+
+
+SHREYANK PARAB
+ 
+SKILLS
+SUMMARY
+Computer Engineering student with strong interest in Geospatial AI, environmental modeling, and
+spatial  decision  systems.  Experienced  in  integrating  satellite  data,  machine  learning,  and  large-
+scale geospatial analytics to build data-driven environmental and urban intelligence frameworks.
+PROJECTS
+EDUCATION
+Vidyalank Institute of Technology 
+Bachelor of Engineering in Computer Engineering | Minors: Robotics
+University of Mumbai   
+First Year CGPI : 9.69
+Second Year : Ongoing  (Sem 3 SGPA: 9.9)    
+Mumbai, India
+2024 - 2028
+ADDITIONAL INFORMATION
+Programming Languages: C, C++, Java, Python, JavaScript, HTML, CSS 
+Tools & Environment: Git, GitHub, VS code, IntelliJ IDEA 
+Frameworks: Spring (Java), React 
+GIS / GeoAI: Satellite data processing, AOD datasets, MERRA-2 reanalysis, Google Earth Engine,
+ArcGIS visualization pipeline
+AI/ML: Scikit-learn, Pandas, NumPy, Matplotlib
+Certifications: Elite + Gold (Top 2%) – NPTEL Programming in Java (Swayam)
++91 8424089685|www.linkedin.com/in/shreyankparab |
+github.com/shreyankp06
+Spoken Language: English, Marathi, Hindi
+Extracurriculars Awards/Activities: 1st Runner Up in All India Camlin Drawing Competition,
+1st Runner Up in Kabaddi DSO(Andheri Taluka)
+Interests: Artificial Intelligence, IoT, Robotics
+GeoAI-Based Urban Growth & Infrastructure Stress Mapping | GIS, Remote Sensing, ML
+Developed a scalable spatial decision-intelligence framework to analyze urban expansion and
+infrastructure stress, Currently, Case Studied on GHMC (2016–2024).
+Performed land cover classification using Sentinel-2 imagery and Random Forest in Google Earth
+Engine. Integrated ward-level indicators including road density, healthcare, education facilities, and
+population. Computed spatial stress index to identify high-pressure urban zones.
+Designed visualization pipeline for deployment through ArcGIS dashboards and StoryMaps.
+Structured framework for replication across multiple Indian cities.
+PM 2.5 Prediction Model | Python
+AI-powered system to predict PM2.5 air pollution using a fusion of MODIS AOD (satellite),
+MERRA-2 (reanalysis), and OpenAQ (ground-based) data.
+While this prototype uses New Delhi for demonstration, the ultimate goal is to scale it to a
+grid-level prediction model for all of India.
+Git Link
+UIDAI Data Hackathon 2026 – Aadhaar Lifecycle Analytics  | Python
+Designed an interpretable governance metric (Lifecycle Deviation Score – LDS) to assess
+district-level alignment between Aadhaar enrolment and biometric updates.
+Performed large-scale EDA, data cleaning, and feature engineering on UIDAI datasets;
+developed policy-ready visualizations and a monitoring dashboard for targeted
+administrative decision-making.
